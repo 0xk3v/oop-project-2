@@ -4,8 +4,24 @@ Module that holds cell class
 
 
 class Cell:
-    """docstring for Cell."""
+    """Cell class"""
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self):
+        # Cell status
+        self.status = False
+
+    def set_dead(self):
+        self.status = False
+
+    def set_alive(self):
+        self.status = True
+
+    def is_alive(self) -> bool:
+        return self.status
+
+    def get_symbol(self) -> str:
+        if self.status:
+            return ""
+        else:
+            # return ""
+            return " "
