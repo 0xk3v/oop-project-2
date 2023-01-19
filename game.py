@@ -29,11 +29,28 @@ class Game:
 
         user_action = ""
         while user_action != "q":
-            user_action = input("Press enter to add generation or q to quit:")
+            user_action = input(
+                "Press enter to add generation or q to quit or s to save the game state:"
+            )
 
             if user_action == "":
                 game.draw_board()
                 game.update_board()
+            elif user_action == "s":
+                self.export_to_file()
+
+    def export_to_file(self):
+        """Class method to export the Game state to a file"""
+        try:
+            file_name = input("Enter filename: ")
+        except:
+            print("Invalid filename")
+
+        try:
+            with open(file_name, "w") as f:
+                f.writelines("hello")
+        except:
+            print("Something is wrong")
 
 
 if __name__ == "__main__":
