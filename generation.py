@@ -8,7 +8,7 @@ import os
 
 
 class Generation:
-    def __init__(self, rows, columns):
+    def __init__(self, rows: int, columns: int):
         """
         Generation class to accept number or Rows, Columns
         """
@@ -17,7 +17,8 @@ class Generation:
         self.rows = rows
         self.columns = columns
         self.grid = [
-            [Cell() for column in range(self.columns)] for row in range(self.rows)
+            [Cell() for column in range(self.columns)]  # pyright: ignore
+            for row in range(self.rows)  # pyright: ignore
         ]
         self.grid_str = ""
 
@@ -68,7 +69,7 @@ class Generation:
         for item in killed:
             item.set_dead()
 
-    def get_neighbor(self, n_row, n_column) -> list:
+    def get_neighbor(self, n_row: int, n_column: int) -> list:
 
         # Search settings
         _min = -1
@@ -104,3 +105,10 @@ class Generation:
             self.grid_str += "\n"
 
         return self.grid_str
+
+    # Operator Overloading
+    def __eq__(self, other: object) -> bool:
+        if self.grid == other.grid:
+            return True
+        else:
+            return False
