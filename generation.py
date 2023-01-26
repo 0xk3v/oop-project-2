@@ -8,7 +8,7 @@ import os
 
 
 class Generation:
-    def __init__(self, rows, columns):
+    def __init__(self, rows: int, columns: int):
         """
         Generation class to accept number or Rows, Columns
         """
@@ -17,8 +17,10 @@ class Generation:
         self.rows = rows
         self.columns = columns
         self.grid = [
-            [Cell() for column in range(self.columns)] for row in range(self.rows)
+            [Cell() for column in range(self.columns)]  # pyright: ignore
+            for row in range(self.rows)  # pyright: ignore
         ]
+        self.grid_str = ""
 
         self.generate_board()
 
@@ -67,7 +69,7 @@ class Generation:
         for item in killed:
             item.set_dead()
 
-    def get_neighbor(self, n_row, n_column) -> list:
+    def get_neighbor(self, n_row: int, n_column: int) -> list:
 
         # Search settings
         _min = -1
@@ -95,6 +97,18 @@ class Generation:
                     neighbors.append(self.grid[neighbor_row][neighbor_col])
         return neighbors
 
+    def to_str(self) -> str:
+        """Class method to convert the board to string"""
+        for row in range(len(self.grid)):
+            for column in range(len(self.grid[row])):
+                self.grid_str += str(self.grid[row][column].get_symbol())
+            self.grid_str += "\n"
 
-if __name__ == "__main__":
-    gen = Generation(15, 30)
+        return self.grid_str
+
+    # Operator Overloading
+    def __eq__(self, other: object) -> bool:
+        if self.grid == other.grid:
+            return True
+        else:
+            return False
