@@ -19,6 +19,7 @@ class Generation:
         self.grid = [
             [Cell() for column in range(self.columns)] for row in range(self.rows)
         ]
+        self.grid_str = ""
 
         self.generate_board()
 
@@ -95,6 +96,11 @@ class Generation:
                     neighbors.append(self.grid[neighbor_row][neighbor_col])
         return neighbors
 
+    def to_str(self) -> str:
+        """Class method to convert the board to string"""
+        for row in range(len(self.grid)):
+            for column in range(len(self.grid[row])):
+                self.grid_str += str(self.grid[row][column].get_symbol())
+            self.grid_str += "\n"
 
-if __name__ == "__main__":
-    gen = Generation(15, 30)
+        return self.grid_str
